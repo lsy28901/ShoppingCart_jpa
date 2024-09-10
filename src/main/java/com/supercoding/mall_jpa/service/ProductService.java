@@ -4,14 +4,18 @@ import com.supercoding.mall_jpa.dto.mapper.ProductMapper;
 import com.supercoding.mall_jpa.dto.product.AddProductDTO;
 import com.supercoding.mall_jpa.dto.product.ViewProductListDTO;
 import com.supercoding.mall_jpa.entity.Product;
+import com.supercoding.mall_jpa.exceptions.NotFoundException;
 import com.supercoding.mall_jpa.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService {
     private final ProductRepository productRepository;
 
@@ -29,5 +33,14 @@ public class ProductService {
         return productList.stream()
                 .map(ProductMapper.INSTANCE::productToViewProductListDTO)
                 .toList();
+    }
+
+    public void deleteProduct(long id){
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()){
+            productRepository.delete(optionalProduct.get());
+        }else {
+            throw new NotFoundException("상품 삭제에 실패했습니다");
+        }
     }
 }

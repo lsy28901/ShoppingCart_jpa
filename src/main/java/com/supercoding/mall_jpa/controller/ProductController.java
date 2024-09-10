@@ -25,4 +25,10 @@ public class ProductController {
     public List<ViewProductListDTO> viewAllProducts(){
         return productService.viewAllProducts();
     }
+
+    @DeleteMapping("/delete")
+    public String deleteProduct(@RequestParam long id){
+        productService.deleteProduct(id);
+        return "상품을 성공적으로 삭제했습니다.";
+    }
 }
