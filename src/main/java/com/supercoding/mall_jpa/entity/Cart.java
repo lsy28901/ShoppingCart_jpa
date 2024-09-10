@@ -31,7 +31,7 @@ public class Cart {
         this.user = user;
     }
 
-    public void addProduct(Product product){
+    public void addProductToCart(Product product){
         if (product != null){
             product.setCart(this);
             productList.add(product);
