@@ -28,8 +28,7 @@ public class EntityTest {
 
     @Test
     public void userEntityTest(){
-        Cart cart = new Cart();
-        cartRepository.save(cart);
+
 
         User user =  User.builder()
                 .userId("lsy1234")
@@ -37,12 +36,12 @@ public class EntityTest {
                 .password("1234")
                 .address("경기도")
                 .phoneNum("010-1234-1234")
-                .cart(cart).build();
+                .build();
 
         userRepository.save(user);
 
         log.info("user ID = {}",user.getId());
-        log.info("cart? = {}",user.getCart());
+        log.info("cart? = {}",user.getCart().getUser().getName());
 
         Product product1 = Product.builder()
                 .productName("신라면")
