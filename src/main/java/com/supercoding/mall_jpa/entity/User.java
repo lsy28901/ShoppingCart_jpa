@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "users")
@@ -16,7 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String userId;
 
     @Column(nullable = false)
@@ -42,6 +41,10 @@ public class User {
         this.cart = new Cart(this);
     }
 
-
-
+    //MapStruct 매핑을 위한 생성자
+    public User(String userId, String name, String phoneNum) {
+        this.userId = userId;
+        this.name = name;
+        this.phoneNum = phoneNum;
+    }
 }
