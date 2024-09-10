@@ -20,18 +20,17 @@ public class UserService {
 
     @Transactional
     public void signUp(SignUpDTO signUpDTO){
-
-        User newUser = User.builder()
-                .userId(signUpDTO.getUserId())
-                .password(signUpDTO.getPassword())
-                .name(signUpDTO.getName())
-                .address(signUpDTO.getAddress())
-                .phoneNum(signUpDTO.getPhoneNum())
-                .build();
-        User foundUser = userRepository.findByUserId(newUser.getUserId());
+        User foundUser = userRepository.findByUserId(signUpDTO.getUserId());
         if (foundUser != null){
             throw new UserSignUpFailException("이미 존재하는 ID 입니다.");
         }else {
+            User newUser = User.builder()
+                    .userId(signUpDTO.getUserId())
+                    .password(signUpDTO.getPassword())
+                    .name(signUpDTO.getName())
+                    .address(signUpDTO.getAddress())
+                    .phoneNum(signUpDTO.getPhoneNum())
+                    .build();
             userRepository.save(newUser);
         }
     }
