@@ -17,8 +17,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public User signUp(@RequestBody SignUpDTO signUpDTO){
-        return userService.signUp(signUpDTO);
+    public void signUp(@RequestBody SignUpDTO signUpDTO){
+        userService.signUp(signUpDTO);
     }
 
     @GetMapping("/view/all")
