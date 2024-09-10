@@ -17,8 +17,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody SignUpDTO signUpDTO){
+    public String signUp(@RequestBody SignUpDTO signUpDTO){
         userService.signUp(signUpDTO);
+        return "회원가입에 성공했습니다.";
     }
 
     @GetMapping("/view/all")

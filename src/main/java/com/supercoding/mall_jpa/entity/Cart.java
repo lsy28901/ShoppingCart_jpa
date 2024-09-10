@@ -26,6 +26,7 @@ public class Cart {
     @OneToMany(mappedBy = "cart") //일대다에서 연관관계의 주인은 '다' 쪽이다.
     private List<Product> productList = new ArrayList<>();
 
+    //양방향 연관관계 관계성 주입
     public Cart(User user){
         this.user = user;
     }
