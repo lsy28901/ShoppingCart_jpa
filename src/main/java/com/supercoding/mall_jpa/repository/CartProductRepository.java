@@ -2,10 +2,12 @@ package com.supercoding.mall_jpa.repository;
 
 import com.supercoding.mall_jpa.entity.CartProduct;
 import com.supercoding.mall_jpa.entity.Product;
+import com.supercoding.mall_jpa.enums.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -28,4 +30,18 @@ public interface CartProductRepository extends JpaRepository<CartProduct,Long> {
             "join cp.cart c " +
             "where c.id = :id ")
     Page<Product> findPageByIdSorted(Long id, Pageable pageable);
+
+    @Query("select p from  Product  p " +
+            "join CartProduct cp on cp.product = p " +
+            "join cp.cart c " +
+            "where c.id = :id and p.productName like %:keyword%")
+    Page<Product> findPageByIdFilteredByName(Long id,Pageable pageable,
+                                             @Param("keyword") String keyword);
+
+    @Query("select p from Product p " +
+            "join CartProduct cp on cp.product = p " +
+            "join cp.cart c " +
+            "where c.id=:id and p.category = :cat")
+    Page<Product> findPageByIdFilteredByCategory(Long id,Pageable pageable,
+                                                 @Param("cat") Category category);
 }
