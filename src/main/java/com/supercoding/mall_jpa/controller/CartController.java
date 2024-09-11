@@ -55,4 +55,10 @@ public class CartController {
             ,Pageable pageable, @RequestParam Category category){
         return cartProductService.viewMyCartFilteredByCategory(id, pageable, category);
     }
+
+    @DeleteMapping("/delete")
+    public String deleteProductToCart(@RequestParam long id,@RequestParam long product_id){
+        cartService.deleteToCart(id,product_id);
+        return "장바구니에서 삭제 성공";
+    }
 }

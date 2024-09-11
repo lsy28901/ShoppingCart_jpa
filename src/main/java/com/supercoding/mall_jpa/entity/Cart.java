@@ -36,6 +36,10 @@ public class Cart {
         this.cartProductList.add(cartProduct);
     }
 
+    public void deleteProduct(Product product){
+        cartProductList.removeIf(cp->cp.getProduct().equals(product));
+    }
+
     public List<Product> getProductList(){
         return cartProductList.stream()
                 .map(cp->cp.getProduct())
