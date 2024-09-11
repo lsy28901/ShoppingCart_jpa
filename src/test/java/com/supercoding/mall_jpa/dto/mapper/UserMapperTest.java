@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserMapperTest {
 
+    //순수 유닛 테스트 -> 의존성없는 메소드. 외부 라이브러리 기능 테스트
     @DisplayName("유저 정보를 보여주기 위한 DTO로 맵핑해주는 것 테스트")
     @Test
     void userToViewUserListDTO() {

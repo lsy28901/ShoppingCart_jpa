@@ -20,17 +20,16 @@ public class UserService {
 
     @Transactional
     public void signUp(SignUpDTO signUpDTO){
+        //mockTest 를 위한 학습용 예외처리 코드
+        if (signUpDTO.getUserId() == null || signUpDTO.getUserId().isEmpty()) {
+            throw new IllegalArgumentException("ID는 필수입니다.");
+        }
+
         User foundUser = userRepository.findByUserId(signUpDTO.getUserId());
         if (foundUser != null){
             throw new UserSignUpFailException("이미 존재하는 ID 입니다.");
         }else {
-            User newUser = User.builder()
-                    .userId(signUpDTO.getUserId())
-                    .password(signUpDTO.getPassword())
-                    .name(signUpDTO.getName())
-                    .address(signUpDTO.getAddress())
-                    .phoneNum(signUpDTO.getPhoneNum())
-                    .build();
+            User newUser = UserMapper.INSTANCE.SignUpDtoToUser(signUpDTO);
             userRepository.save(newUser);
         }
     }

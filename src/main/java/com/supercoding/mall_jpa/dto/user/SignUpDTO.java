@@ -1,10 +1,11 @@
 package com.supercoding.mall_jpa.dto.user;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@Builder
 public class SignUpDTO {
     private String userId;
     private String name;

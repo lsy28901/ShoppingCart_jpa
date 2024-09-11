@@ -1,5 +1,6 @@
 package com.supercoding.mall_jpa.dto.mapper;
 
+import com.supercoding.mall_jpa.dto.user.SignUpDTO;
 import com.supercoding.mall_jpa.dto.user.ViewUserListDTO;
 import com.supercoding.mall_jpa.entity.User;
 import org.mapstruct.Mapper;
@@ -15,4 +16,6 @@ public interface UserMapper {
     @Mapping(source = "name",target = "name")
     @Mapping(source = "phoneNum",target = "phoneNum")
     ViewUserListDTO userToViewUserListDTO(User user);
+
+    User SignUpDtoToUser(SignUpDTO signUpDTO);
 }
