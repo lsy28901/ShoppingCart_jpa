@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
 @Getter
 @NoArgsConstructor
+@ToString(exclude = {"id","cart"})
 public class User {
 
     @Id
