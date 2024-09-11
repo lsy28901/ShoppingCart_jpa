@@ -54,7 +54,7 @@ public class EntityTest {
         log.info("product TotalPrice = {}",product1.getTotalPrice());
 
         Cart foundCart = cartRepository.findById(user.getCart().getId()).orElseThrow();
-        foundCart.addProductToCart(product1);
+        foundCart.addProduct(product1);
         log.info("foundCarts ={}",foundCart.getProductList().get(0).getProductName());
 
         assertThat(user.getId()).isNotNull();
