@@ -27,12 +27,8 @@ public class CartService {
     private final ProductRepository productRepository;
 
     public void addToCart(long id,long product_id){
-        Cart cart = cartRepository.findById(id)
-                .orElseThrow(()->new NotFoundException("장바구니를 찾을 수 없습니다."));
-
-        Product product = productRepository.findById(product_id)
-                .orElseThrow(()->new NotFoundException("해당 상품을 찾을 수 없습니다."));
-
+        Cart cart = checkCartNotFoundException(id);
+        Product product = checkProductNotFoundException(product_id);
         cart.addProduct(product);
         cartRepository.save(cart);
     }
@@ -45,6 +41,21 @@ public class CartService {
         return productList.stream()
                 .map(CartMapper.INSTANCE::productToViewCartDTO)
                 .toList();
+    }
+
+    public void deleteToCart(long id,long product_id){
+        Cart cart = checkCartNotFoundException(id);
+        Product product = checkProductNotFoundException(product_id);
+        cart.deleteProduct(product);
+    }
+
+    public Product checkProductNotFoundException(long product_id){
+        return productRepository.findById(product_id)
+                .orElseThrow(()->new NotFoundException("해당 상품을 찾을 수 없습니다."));
+    }
+    public Cart checkCartNotFoundException(long id){
+        return cartRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("장바구니를 찾을 수 없습니다"));
     }
 
 }

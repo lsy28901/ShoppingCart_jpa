@@ -35,4 +35,5 @@ public interface CartMapper {
     @Mapping(target = "category",expression = "java(p.getCategory().getName())")
     @Mapping(target = "totalPrice",expression = "java(p.getPrice() * p.getQuantity())")
     ViewCartDTO CartProductListToViewCartDTO(Product p);
+
 }
