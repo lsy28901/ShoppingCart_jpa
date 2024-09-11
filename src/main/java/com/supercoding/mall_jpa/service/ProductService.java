@@ -20,11 +20,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public void addProduct(AddProductDTO addProductDTO){
-        Product product = Product.builder()
-                .productName(addProductDTO.getProductName())
-                .price(addProductDTO.getPrice())
-                .quantity(addProductDTO.getQuantity())
-                .category(addProductDTO.getCategory()).build();
+        Product product = ProductMapper.INSTANCE.addProductDtoToProduct(addProductDTO);
         productRepository.save(product);
     }
 

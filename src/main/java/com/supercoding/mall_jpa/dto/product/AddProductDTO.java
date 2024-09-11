@@ -8,6 +8,5 @@ public class AddProductDTO {
     private String productName;
     private int price;
     private int quantity;
-    private int totalPrice;
     private Category category;
 }

@@ -1,5 +1,6 @@
 package com.supercoding.mall_jpa.dto.mapper;
 
+import com.supercoding.mall_jpa.dto.product.AddProductDTO;
 import com.supercoding.mall_jpa.dto.product.ViewProductListDTO;
 import com.supercoding.mall_jpa.entity.Product;
 import org.mapstruct.Mapper;
@@ -16,4 +17,6 @@ public interface ProductMapper {
     @Mapping(target = "category",expression = "java(p.getCategory().getName())")
     @Mapping(target = "totalPrice",expression = "java(p.getPrice() * p.getQuantity())")
     ViewProductListDTO productToViewProductListDTO(Product p);
+
+    Product addProductDtoToProduct(AddProductDTO dto);
 }
