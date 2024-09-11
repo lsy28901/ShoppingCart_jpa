@@ -4,8 +4,10 @@ import com.supercoding.mall_jpa.dto.cart.ViewCartDTO;
 import com.supercoding.mall_jpa.dto.mapper.CartMapper;
 import com.supercoding.mall_jpa.dto.mapper.ProductMapper;
 import com.supercoding.mall_jpa.entity.Cart;
+import com.supercoding.mall_jpa.entity.CartProduct;
 import com.supercoding.mall_jpa.entity.Product;
 import com.supercoding.mall_jpa.exceptions.NotFoundException;
+import com.supercoding.mall_jpa.repository.CartProductRepository;
 import com.supercoding.mall_jpa.repository.CartRepository;
 import com.supercoding.mall_jpa.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
