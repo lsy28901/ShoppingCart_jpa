@@ -4,6 +4,7 @@ import com.supercoding.mall_jpa.dto.cart.ViewCartDTO;
 import com.supercoding.mall_jpa.dto.mapper.CartMapper;
 import com.supercoding.mall_jpa.entity.CartProduct;
 import com.supercoding.mall_jpa.entity.Product;
+import com.supercoding.mall_jpa.enums.Category;
 import com.supercoding.mall_jpa.repository.CartProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,16 @@ public class CartProductService {
 
     public Page<ViewCartDTO> viewMyCartPageSorted(long id, Pageable pageable){
         Page<Product> cartProducts = cartProductRepository.findPageByIdSorted(id,pageable);
+        return cartProducts.map(CartMapper.INSTANCE::CartProductListToViewCartDTO);
+    }
+
+    public Page<ViewCartDTO> viewMyCartFilteredByName(long id, Pageable pageable, String keyword){
+        Page<Product> cartProducts = cartProductRepository.findPageByIdFilteredByName(id,pageable,keyword);
+        return cartProducts.map(CartMapper.INSTANCE::CartProductListToViewCartDTO);
+    }
+
+    public Page<ViewCartDTO> viewMyCartFilteredByCategory(long id, Pageable pageable, Category category){
+        Page<Product> cartProducts = cartProductRepository.findPageByIdFilteredByCategory(id,pageable,category);
         return cartProducts.map(CartMapper.INSTANCE::CartProductListToViewCartDTO);
     }
 }

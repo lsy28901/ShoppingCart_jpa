@@ -2,6 +2,7 @@ package com.supercoding.mall_jpa.controller;
 
 import com.supercoding.mall_jpa.dto.cart.ViewCartDTO;
 import com.supercoding.mall_jpa.entity.Product;
+import com.supercoding.mall_jpa.enums.Category;
 import com.supercoding.mall_jpa.service.CartProductService;
 import com.supercoding.mall_jpa.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +42,17 @@ public class CartController {
     @GetMapping("/view/paging")
     public Page<ViewCartDTO> viewMyCartPageSorted(@RequestParam long id,Pageable pageable){
         return cartProductService.viewMyCartPageSorted(id,pageable);
+    }
+
+    @GetMapping("/view/filter/name")
+    public Page<ViewCartDTO> viewMyCartPageFilteredByName(@RequestParam long id
+            ,Pageable pageable , @RequestParam String keyword){
+        return cartProductService.viewMyCartFilteredByName(id, pageable, keyword);
+    }
+
+    @GetMapping("/view/filter/category")
+    public Page<ViewCartDTO> viewMyCartPageFilteredByCategory(@RequestParam long id
+            ,Pageable pageable, @RequestParam Category category){
+        return cartProductService.viewMyCartFilteredByCategory(id, pageable, category);
     }
 }
