@@ -4,7 +4,9 @@ import com.supercoding.mall_jpa.dto.product.AddProductDTO;
 import com.supercoding.mall_jpa.dto.product.ViewProductListDTO;
 import com.supercoding.mall_jpa.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +26,10 @@ public class ProductController {
     @GetMapping("/view/all")
     public List<ViewProductListDTO> viewAllProducts(){
         return productService.viewAllProducts();
+    }
+    @GetMapping("/view/paging")
+    public Page<ViewProductListDTO> viewAllProductsPaging(Pageable pageable){
+        return productService.viewAllProductsPaging(pageable);
     }
 
     @DeleteMapping("/delete")
