@@ -23,19 +23,23 @@ public class Cart {
     @JsonIgnore // JSON 직렬화에서 이 필드를 제외하여 순환 참조 방지
     private User user;
 
-    @OneToMany(mappedBy = "cart") //일대다에서 연관관계의 주인은 '다' 쪽이다.
-    private List<Product> productList = new ArrayList<>();
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true) //일대다에서 연관관계의 주인은 '다' 쪽이다.
+    List<CartProduct> cartProductList = new ArrayList<>();
 
     //양방향 연관관계 관계성 주입
     public Cart(User user){
         this.user = user;
     }
 
-    public void addProductToCart(Product product){
-        if (product != null){
-            product.setCart(this);
-            productList.add(product);
-        }
+    public void addProduct(Product product){
+        CartProduct cartProduct = new CartProduct(this,product);
+        this.cartProductList.add(cartProduct);
+    }
+
+    public List<Product> getProductList(){
+        return cartProductList.stream()
+                .map(cp->cp.getProduct())
+                .toList();
     }
 
 }

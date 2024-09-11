@@ -1,9 +1,27 @@
 package com.supercoding.mall_jpa.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.supercoding.mall_jpa.dto.cart.ViewCartDTO;
+import com.supercoding.mall_jpa.entity.Product;
+import com.supercoding.mall_jpa.service.CartService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/cart")
+@RequiredArgsConstructor
 public class CartController {
+    private final CartService cartService;
+
+    @PostMapping("/add")
+    public String addProductToCart(@RequestParam long id, @RequestParam long product_id){
+        cartService.addToCart(id,product_id);
+        return "장바구니에 담기 성공";
+    }
+
+    @GetMapping("/view/all")
+    public List<ViewCartDTO> viewMyCart(@RequestParam long id){
+        return cartService.viewMyCart(id);
+    }
 }

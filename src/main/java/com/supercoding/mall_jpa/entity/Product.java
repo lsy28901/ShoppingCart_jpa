@@ -23,7 +23,6 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -39,6 +38,5 @@ public class Product {
     private void calculateTotalPrice() {
         this.totalPrice = this.price * this.quantity;
     }
-
 
 }
