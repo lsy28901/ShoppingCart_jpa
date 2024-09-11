@@ -1,6 +1,9 @@
 package com.supercoding.mall_jpa.repository;
 
 import com.supercoding.mall_jpa.entity.CartProduct;
+import com.supercoding.mall_jpa.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,6 +19,13 @@ public interface CartProductRepository extends JpaRepository<CartProduct,Long> {
             "join cp.cart c " +
             "join cp.product p " +
             "where c.id = :id " +
-            "ORDER BY p.price DESC ")
+            "ORDER BY p.totalPrice DESC ")
     List<CartProduct> findListByIdOrderByPriceDesc(Long id);
+
+    //Product 엔티티를 가져오는데 CartProduct 를 통해서 cart 를 조인해야함.
+    @Query("select p from Product p " +
+            "join CartProduct cp on cp.product = p " +
+            "join cp.cart c " +
+            "where c.id = :id ")
+    Page<Product> findPageByIdSorted(Long id, Pageable pageable);
 }

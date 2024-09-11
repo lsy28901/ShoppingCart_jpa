@@ -5,6 +5,8 @@ import com.supercoding.mall_jpa.entity.Product;
 import com.supercoding.mall_jpa.service.CartProductService;
 import com.supercoding.mall_jpa.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +35,11 @@ public class CartController {
         if (sorted.equals("price")){
             myCartList = cartProductService.viewMyCartSortByPriceDesc(id);
         }
-
         return myCartList;
+    }
+
+    @GetMapping("/view/paging")
+    public Page<ViewCartDTO> viewMyCartPageSorted(@RequestParam long id,Pageable pageable){
+        return cartProductService.viewMyCartPageSorted(id,pageable);
     }
 }
